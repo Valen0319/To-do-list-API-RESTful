@@ -1,0 +1,23 @@
+{
+  "name": "semana19-proyecto-todolist",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Valen0319/To-do-list-API-RESTful.git"
+  },
+  "author": "Valentin Arroyo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Valen0319/To-do-list-API-RESTful/issues"
+  },
+  "homepage": "https://github.com/Valen0319/To-do-list-API-RESTful#readme",
+  "dependencies": {
+    "express": "^5.1.0",
+    "mysql2": "^3.14.3"
+  }
+}
