@@ -8,7 +8,7 @@ export const getAll = async () => {
     return rows;
   } catch (error) {
     console.error("Error fetching tasks:", error);
-    throw new Error("Could not fetch tasks from the database.");
+    throw error;
   }
 };
 
@@ -23,7 +23,7 @@ export const getById = async (id) => {
     return rows[0];
   } catch (error) {
     console.error(`Error fetching task with id ${id}:`, error);
-    throw new Error(`Could not fetch task with id ${id} from the database.`);
+    throw error;
   }
 };
 
@@ -43,28 +43,28 @@ export const create = async (task) => {
     return { id: result.insertId, ...task };
   } catch (error) {
     console.error("Error creating task:", error);
-    throw new Error("Could not create task in the database.");
+    throw error;
   }
 };
 
 // Función para actualizar una tarea por su ID
 export const updateById = async (id, task) => {
   try {
-    const { titulo, descripcion, estado, fecha_limite, usuario_id } = task;
-    const query =
-      "UPDATE tareas SET titulo = ?, descripcion = ?, estado = ?, fecha_limite = ?, usuario_id = ? WHERE id = ?";
-    const [result] = await pool.query(query, [
-      titulo,
-      descripcion,
-      estado,
-      fecha_limite,
-      usuario_id,
-      id
-    ]);
+    const fields = Object.keys(task);
+    const values = Object.values(task);
+    
+    if (fields.length === 0) {
+      return false; // No hay campos para actualizar
+    }
+
+    const setClause = fields.map(field => `${field} = ?`).join(', ');
+    const query = `UPDATE tareas SET ${setClause} WHERE id = ?`;
+    
+    const [result] = await pool.query(query, [...values, id]);
     return result.affectedRows > 0;
   } catch (error) {
     console.error(`Error updating task with id ${id}:`, error);
-    throw new Error(`Could not update task with id ${id} in the database.`);
+    throw error;
   }
 };
 
@@ -76,7 +76,7 @@ export const deleteById = async (id) => {
     return result.affectedRows > 0;
   } catch (error) {
     console.error(`Error deleting task with id ${id}:`, error);
-    throw new Error(`Could not delete task with id ${id} from the database.`);
+    throw error;
   }
 };
 
@@ -88,6 +88,6 @@ export const getByUserId = async (userId) => {
     return rows;
   } catch (error) {
     console.error(`Error fetching tasks for user ${userId}:`, error);
-    throw new Error(`Could not fetch tasks for user ${userId} from the database.`);
+    throw error;
   }
 };

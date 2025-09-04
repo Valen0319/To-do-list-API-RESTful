@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   const userData = JSON.parse(localStorage.getItem("userData"));
+  console.log("userData from localStorage:", userData);
   if (!userData) {
     window.location.href = "login.html";
     return;
@@ -173,7 +174,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   async function loadTasksContent() {
-     try {
+    try {
         const response = await fetch(`http://localhost:3000/usuarios/${userData.id}/tareas`);
         const tasks = await response.json();
         notificationBadge.textContent = tasks.length;
@@ -183,12 +184,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
                         <h6 class="mb-0">${task.titulo}</h6>
-                        <span class="badge bg-${task.completada ? "success" : "warning"}">${task.completada ? "Completada" : "Pendiente"}</span>
+                        <span class="badge bg-${task.estado === 'completada' ? "success" : "warning"}">${task.estado}</span>
                     </div>
                     <div class="card-body">
                         <p class="card-text">${task.descripcion}</p>
+                        <button class="btn btn-sm btn-outline-success me-1" onclick="toggleTaskStatus(${task.id}, '${task.estado}')">
+                            <i class="fas fa-check"></i>
+                        </button>
                         <button class="btn btn-sm btn-outline-danger" onclick="deleteTask(${task.id})">
-                            <i class="fas fa-trash"></i> Eliminar
+                            <i class="fas fa-trash"></i>
                         </button>
                     </div>
                 </div>
@@ -200,7 +204,7 @@ document.addEventListener("DOMContentLoaded", function () {
         dynamicContent.innerHTML = '<p class="text-danger">Error al cargar las tareas.</p>';
         console.error(error);
     }
-  }
+}
 
   function loadNewTaskContent() {
     dynamicContent.innerHTML = `
@@ -239,15 +243,36 @@ document.addEventListener("DOMContentLoaded", function () {
                   usuario_id: userData.id
               })
           });
+          const result = await response.json();
           if (response.ok) {
               showToast("Tarea creada con éxito.", "success");
               handleSectionChange("tareas");
           } else {
-              showToast("Error al crear la tarea.", "danger");
+              showToast(result.message || "Error al crear la tarea.", "danger");
           }
       } catch (error) {
           console.error(error);
           showToast("Error de conexión al crear la tarea.", "danger");
+      }
+  }
+
+  window.toggleTaskStatus = async function(taskId, currentStatus) {
+      const newStatus = currentStatus === 'completada' ? 'pendiente' : 'completada';
+      try {
+          const response = await fetch(`http://localhost:3000/tareas/${taskId}`, {
+              method: "PUT",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ estado: newStatus })
+          });
+          if (response.ok) {
+              showToast("Estado de la tarea actualizado.", "success");
+              loadTasksContent();
+          } else {
+              showToast("No se pudo actualizar el estado de la tarea.", "danger");
+          }
+      } catch (error) {
+          console.error(error);
+          showToast("Error de conexión al actualizar la tarea.", "danger");
       }
   }
 

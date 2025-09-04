@@ -29,6 +29,7 @@ export const createTask = async (req, res) => {
     const newTask = await create(req.body);
     res.status(201).json(newTask);
   } catch (error) {
+    console.log("Error in createTask controller:", error);
     res.status(500).json({ message: error.message });
   }
 };

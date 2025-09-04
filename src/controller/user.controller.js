@@ -21,6 +21,7 @@ export const loginUser = async (req, res) => {
     // No enviar la contraseña en la respuesta
     const { password: _, ...userResponse } = user;
 
+    console.log("User data being sent to client:", userResponse);
     res.status(200).json({ message: "Login exitoso", user: userResponse });
 
   } catch (error) {
