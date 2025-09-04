@@ -1,4 +1,33 @@
-import { getAll, getById, create, updateById, deleteById } from "../model/user.model.js";
+import { getAll, getById, create, updateById, deleteById, findByEmail } from "../model/user.model.js";
+
+export const loginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      return res.status(400).json({ message: "Email y contraseña son requeridos." });
+    }
+
+    const user = await findByEmail(email);
+    if (!user) {
+      return res.status(404).json({ message: "Usuario no encontrado." });
+    }
+
+    // ATENCIÓN: La contraseña se está comparando en texto plano.
+    // En una aplicación real, aquí deberías comparar contraseñas hasheadas.
+    if (user.password !== password) {
+      return res.status(401).json({ message: "Contraseña incorrecta." });
+    }
+
+    // No enviar la contraseña en la respuesta
+    const { password: _, ...userResponse } = user;
+
+    console.log("User data being sent to client:", userResponse);
+    res.status(200).json({ message: "Login exitoso", user: userResponse });
+
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
 export const getAllUsers = async (req, res) => {
   try {

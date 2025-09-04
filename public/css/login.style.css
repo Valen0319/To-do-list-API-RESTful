@@ -1,0 +1,270 @@
+:root {
+  --color-bg-main: #E3F6F5;
+  --color-bg-form: #FFFFFF;
+  --color-text-main: #5C5C5C;
+  --color-text-accent: #3A6EA5;
+  --radius-lg: 18px;
+  --shadow-lg: 0 2px 16px #a7c7e755;
+}
+
+/* Reset */
+* { margin:0; padding:0; box-sizing:border-box; }
+
+/* Layout con Grid */
+.layout { 
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  position: relative;
+}
+.layout--bg-main { background: var(--color-bg-main); }
+.layout--text-main { color: var(--color-text-main); }
+
+/* Header con position sticky */
+.header { 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  padding: 16px 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+}
+.header--gradient { 
+  background: linear-gradient(90deg, #3A6EA5, #A7C7E7); 
+  color: #fff; 
+}
+.header__title { 
+  font-size: 2rem; 
+  font-weight: 600; 
+  position: relative;
+}
+
+/* Badge flotante con position absolute */
+.header__badge {
+  position: absolute;
+  top: -8px;
+  right: -20px;
+  background: #ff6b6b;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* Main con Flexbox */
+.main { 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  padding: 16px;
+  position: relative;
+}
+
+/* Decoración de fondo con position absolute */
+.main::before {
+  content: '';
+  position: absolute;
+  top: 20%;
+  left: 10%;
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(45deg, #BEE1E6, transparent);
+  border-radius: 50%;
+  opacity: 0.3;
+  z-index: 0;
+}
+
+.main::after {
+  content: '';
+  position: absolute;
+  bottom: 20%;
+  right: 15%;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #A7C7E7, transparent);
+  border-radius: 50%;
+  opacity: 0.2;
+  z-index: 0;
+}
+
+/* Login form con Grid interno */
+.login { 
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px; 
+  background: var(--color-bg-form); 
+  border-radius: var(--radius-lg); 
+  padding: 40px; 
+  width: 90%; 
+  max-width: 400px; 
+  box-shadow: var(--shadow-lg); 
+  transition: transform 0.2s;
+  position: relative;
+  z-index: 1;
+}
+.login:hover { transform: translateY(-2px); }
+
+/* Container para label e input con Flexbox */
+.login__field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+}
+
+.login__label { 
+  font-weight: 500; 
+  font-size: 1rem; 
+  display: flex; 
+  align-items: center; 
+  gap: 8px; 
+}
+
+.login__input { 
+  padding: 12px; 
+  border: 1px solid #ccc; 
+  border-radius: 8px; 
+  font-size: 16px; 
+  transition: border 0.2s, box-shadow 0.2s;
+  position: relative;
+}
+.login__input:focus { 
+  border-color: var(--color-text-accent); 
+  outline: none; 
+  box-shadow: 0 0 0 2px #BEE1E6; 
+}
+
+/* Indicador de validación con position absolute */
+.login__field::after {
+  content: '';
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  transition: all 0.2s;
+}
+
+.login__field.valid::after {
+  content: '✓';
+  color: #28a745;
+  font-weight: bold;
+  width: auto;
+  height: auto;
+}
+
+.login__button { 
+  background: var(--color-text-accent); 
+  color: #fff; 
+  border: none; 
+  border-radius: 8px; 
+  padding: 12px 0; 
+  font-size: 1rem; 
+  cursor: pointer; 
+  font-weight: 600; 
+  transition: background 0.2s, transform 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.login__button:hover { 
+  background: #2c5282; 
+  transform: translateY(-2px); 
+}
+
+/* Efecto de ripple con position absolute */
+.login__button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transition: width 0.3s, height 0.3s;
+}
+
+.login__button:active::before {
+  width: 200px;
+  height: 200px;
+}
+
+/* Footer con Flexbox */
+.footer { 
+  font-size: 14px; 
+  padding: 20px; 
+  text-align: center; 
+  background: #A7C7E7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer__links { 
+  display: flex; 
+  flex-wrap: wrap; 
+  justify-content: center; 
+  gap: 6px; 
+}
+
+.footer__link { 
+  color: #5C5C5C; 
+  text-decoration: none; 
+  transition: color 0.2s; 
+  position: relative;
+}
+
+.footer__link:hover { 
+  color: #3A6EA5; 
+  text-decoration: underline; 
+}
+
+/* Notificación flotante con position fixed */
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #28a745;
+  color: white;
+  padding: 16px 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.notification.show {
+  transform: translateX(0);
+}
+
+.notification.error {
+  background: #dc3545;
+}
+
+/* Responsive Grid */
+@media (max-width: 768px) {
+  .layout {
+    grid-template-rows: auto 1fr auto;
+  }
+  
+  .footer__links {
+    flex-direction: column;
+    gap: 12px;
+  }
+}

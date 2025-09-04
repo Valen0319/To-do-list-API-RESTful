@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inicio de Sesión</title>
+    
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Fuentes -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    
+    <!-- CSS personalizado -->
+    <link rel="stylesheet" href="../css/login.style.css" />
+  </head>
+  <body class="layout layout--bg-main layout--text-main">
+    
+    <!-- Header con badge de Bootstrap -->
+    <header class="header header--gradient">
+      <h1 class="header__title">
+        To Do List 
+        <span class="header__badge">
+          <i class="fas fa-star"></i>
+        </span>
+      </h1>
+    </header>
+
+    <!-- Alert de Bootstrap (inicialmente oculto) -->
+    <div class="alert alert-success alert-dismissible fade" role="alert" id="welcomeAlert" style="margin: 0; border-radius: 0;">
+      <i class="fas fa-check-circle me-2"></i>
+      <strong>¡Bienvenido!</strong> Sistema de gestión de tareas disponible.
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <main class="main">
+      <!-- Formulario principal -->
+      <form class="login login--shadow-lg" method="POST" id="loginForm">
+        
+        <!-- Campo de usuario -->
+        <div class="login__field">
+          <label for="username" class="login__label">
+            <i class="fa fa-envelope"></i> Usuario
+          </label>
+          <input
+            id="username"
+            name="username"
+            type="email"
+            class="login__input form-control"
+            placeholder="tu@email.com"
+            required
+          />
+          <div class="invalid-feedback">
+            Por favor ingresa un email válido.
+          </div>
+        </div>
+
+        <!-- Campo de contraseña -->
+        <div class="login__field">
+          <label for="password" class="login__label">
+            <i class="fa fa-lock"></i> Contraseña
+          </label>
+          <div class="input-group">
+            <input
+              id="password"
+              name="password"
+              type="password"
+              class="login__input form-control"
+              placeholder="••••••••"
+              required
+            />
+            <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+          <div class="invalid-feedback">
+            La contraseña debe tener al menos 6 caracteres.
+          </div>
+        </div>
+
+        <!-- Checkbox de recordar usuario (Bootstrap) -->
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="rememberMe">
+          <label class="form-check-label" for="rememberMe">
+            Recordar mis datos
+          </label>
+        </div>
+
+        <!-- Botón de envío -->
+        <button type="submit" class="login__button btn btn-primary">
+          <i class="fas fa-sign-in-alt me-2"></i>
+          Iniciar Sesión
+        </button>
+
+        <!-- Enlaces adicionales con Bootstrap -->
+        <div class="d-flex justify-content-between mt-3">
+          <a href="#" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">
+            <i class="fas fa-question-circle me-1"></i>
+            ¿Olvidaste tu contraseña?
+          </a>
+          <a href="#" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#createAccountModal">
+            <i class="fas fa-user-plus me-1"></i>
+            Crear cuenta
+          </a>
+        </div>
+      </form>
+    </main>
+
+    <!-- Modal de Bootstrap para crear cuenta -->
+    <div class="modal fade" id="createAccountModal" tabindex="-1" aria-labelledby="createAccountModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="createAccountModalLabel">
+              <i class="fas fa-user-plus me-2"></i>
+              Crear Nueva Cuenta
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="createAccountForm">
+              <div class="mb-3">
+                <label for="createUsername" class="form-label">
+                  <i class="fas fa-envelope me-2"></i>
+                  Correo electrónico
+                </label>
+                <input type="email" class="form-control" id="createUsername" placeholder="tu@email.com" required>
+                <div class="invalid-feedback">
+                  Por favor ingresa un email válido.
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="createPassword" class="form-label">
+                  <i class="fas fa-lock me-2"></i>
+                  Contraseña
+                </label>
+                <input type="password" class="form-control" id="createPassword" placeholder="••••••••" required>
+                <div class="invalid-feedback">
+                  La contraseña debe tener al menos 6 caracteres.
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" form="createAccountForm" class="btn btn-primary">
+              <i class="fas fa-check-circle me-2"></i>
+              Crear Cuenta
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal de Bootstrap para recuperar contraseña -->
+    <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="forgotPasswordModalLabel">
+              <i class="fas fa-key me-2"></i>
+              Recuperar Contraseña
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="forgotPasswordForm">
+              <div class="mb-3">
+                <label for="recoveryEmail" class="form-label">
+                  <i class="fas fa-envelope me-2"></i>
+                  Correo electrónico
+                </label>
+                <input type="email" class="form-control" id="recoveryEmail" placeholder="tu@email.com" required>
+                <div class="form-text">Te enviaremos un enlace para restablecer tu contraseña.</div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" form="forgotPasswordForm" class="btn btn-primary">
+              <i class="fas fa-paper-plane me-2"></i>
+              Enviar enlace
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast de Bootstrap para notificaciones -->
+    <div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
+      <div id="notificationToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+          <div class="toast-body">
+            <i class="fas fa-check-circle me-2"></i>
+            <span id="toastMessage">Mensaje de notificación</span>
+          </div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer footer--bg-accent footer--text-main">
+      <div class="footer__links">
+        © 2025 Valentin & Lautaro |
+        <a href="mailto:valentinarroyo251122@gmail.com" class="footer__link">
+          valentinarroyo251122@gmail.com
+        </a>
+        <a href="mailto:lauty9698@gmail.com" class="footer__link">
+          lauty9698@gmail.com
+        </a>
+        |
+        <a
+          href="https://instagram.com/aa.valxn"
+          target="_blank"
+          class="footer__link"
+        >
+          IG: @aa.valxn
+        </a>
+        <a
+          href="https://instagram.com/lautiezequiell"
+          target="_blank"
+          class="footer__link"
+        >
+          IG: lautiezequiell
+        </a>
+      </div>
+    </footer>
+
+    <!-- Bootstrap 5.3 JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- JavaScript personalizado -->
+    <script src="../js/login.js"></script>
+  </body>
+</html>
