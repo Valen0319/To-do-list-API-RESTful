@@ -89,6 +89,69 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  // Formulario de creación de cuenta
+  const createAccountForm = document.getElementById("createAccountForm");
+  if (createAccountForm) {
+    createAccountForm.addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const emailInput = document.getElementById("createUsername");
+      const passwordInput = document.getElementById("createPassword");
+      let isValid = true;
+
+      // Validar email
+      if (!emailInput.value || !emailInput.checkValidity()) {
+        emailInput.classList.add("is-invalid");
+        isValid = false;
+      } else {
+        emailInput.classList.remove("is-invalid");
+        emailInput.classList.add("is-valid");
+      }
+
+      // Validar contraseña
+      if (!passwordInput.value || passwordInput.value.length < 6) {
+        passwordInput.classList.add("is-invalid");
+        isValid = false;
+      } else {
+        passwordInput.classList.remove("is-invalid");
+        passwordInput.classList.add("is-valid");
+      }
+
+      if (isValid) {
+        try {
+          const response = await fetch("http://localhost:3000/usuarios", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: emailInput.value,
+              password: passwordInput.value,
+            }),
+          });
+
+          const result = await response.json();
+
+          if (response.ok) {
+            showToast("¡Cuenta creada con éxito!", "success");
+            const modalElement = document.getElementById("createAccountModal");
+            if (modalElement) {
+              const modal = bootstrap.Modal.getInstance(modalElement);
+              modal.hide();
+            }
+          } else {
+            showToast(result.message || "Error al crear la cuenta.", "danger");
+          }
+        } catch (error) {
+          console.error("Error en el fetch:", error);
+          showToast("No se pudo conectar con el servidor.", "danger");
+        }
+      } else {
+        showToast("Por favor corrige los errores en el formulario.", "danger");
+      }
+    });
+  }
+
   // Formulario de recuperación de contraseña
   const forgotPasswordForm = document.getElementById("forgotPasswordForm");
   if (forgotPasswordForm) {

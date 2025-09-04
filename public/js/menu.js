@@ -10,6 +10,77 @@ document.addEventListener("DOMContentLoaded", function () {
   const dynamicContent = document.getElementById("dynamic-content");
   const notificationBadge = document.getElementById("notificationBadge");
 
+  // --- TRANSLATIONS ---
+  const translations = {
+    es: {
+      "To Do List Dashboard": "Dashboard To Do List",
+      "Mi Perfil": "Mi Perfil",
+      "Configuración": "Configuración",
+      "Cerrar Sesión": "Cerrar Sesión",
+      "Inicio": "Inicio",
+      "Usuarios": "Usuarios",
+      "Ver usuarios": "Ver usuarios",
+      "Tareas": "Tareas",
+      "Ver tareas": "Ver tareas",
+      "Nueva tarea": "Nueva tarea",
+      "Config": "Config",
+      "Salir": "Salir",
+      "Panel de Información": "Panel de Información",
+      "¡Bienvenido al dashboard!": "¡Bienvenido al dashboard!",
+      "Aquí podrás gestionar usuarios y tareas del sistema.": "Aquí podrás gestionar usuarios y tareas del sistema.",
+      "Utiliza el menú lateral para navegar entre las diferentes secciones del sistema.": "Utiliza el menú lateral para navegar entre las diferentes secciones del sistema.",
+      "Configuración del Sistema": "Configuración del Sistema",
+      "General": "General",
+      "Modo oscuro": "Modo oscuro",
+      "Idioma": "Idioma",
+      "Cancelar": "Cancelar",
+      "Guardar cambios": "Guardar cambios",
+    },
+    en: {
+      "To Do List Dashboard": "To Do List Dashboard",
+      "Mi Perfil": "My Profile",
+      "Configuración": "Settings",
+      "Cerrar Sesión": "Logout",
+      "Inicio": "Home",
+      "Usuarios": "Users",
+      "Ver usuarios": "View Users",
+      "Tareas": "Tasks",
+      "Ver tareas": "View Tasks",
+      "Nueva tarea": "New Task",
+      "Config": "Config",
+      "Salir": "Exit",
+      "Panel de Información": "Information Panel",
+      "¡Bienvenido al dashboard!": "Welcome to the dashboard!",
+      "Aquí podrás gestionar usuarios y tareas del sistema.": "Here you can manage users and tasks of the system.",
+      "Utiliza el menú lateral para navegar entre las diferentes secciones del sistema.": "Use the side menu to navigate between the different sections of the system.",
+      "Configuración del Sistema": "System Settings",
+      "General": "General",
+      "Modo oscuro": "Dark Mode",
+      "Idioma": "Language",
+      "Cancelar": "Cancel",
+      "Guardar cambios": "Save Changes",
+    },
+  };
+
+  function setLanguage(lang) {
+    document.documentElement.lang = lang;
+    document.querySelectorAll("[data-translate]").forEach((element) => {
+      const key = element.dataset.translate;
+      element.textContent = translations[lang][key];
+    });
+  }
+
+  const languageSelect = document.getElementById("languageSelect");
+  languageSelect.addEventListener("change", (e) => {
+    const lang = e.target.value;
+    localStorage.setItem("language", lang);
+    setLanguage(lang);
+  });
+
+  const savedLanguage = localStorage.getItem("language") || "es";
+  languageSelect.value = savedLanguage;
+  setLanguage(savedLanguage);
+
   // --- DARK MODE ---
   const darkModeToggle = document.getElementById("darkMode");
   const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -165,7 +236,7 @@ document.addEventListener("DOMContentLoaded", function () {
               body: JSON.stringify({
                   titulo: title,
                   descripcion: description,
-                  id_usuario: userData.id
+                  usuario_id: userData.id
               })
           });
           if (response.ok) {

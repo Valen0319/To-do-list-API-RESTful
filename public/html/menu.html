@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard To Do List</title>
+    <title data-translate="To Do List Dashboard">Dashboard To Do List</title>
 
     <!-- Bootstrap 5.3 CSS -->
     <link
@@ -31,7 +31,7 @@
 
     <!-- Header -->
     <header class="header header--gradient">
-      <h1 class="header__title">To Do List Dashboard</h1>
+      <h1 class="header__title" data-translate="To Do List Dashboard">To Do List Dashboard</h1>
 
       <!-- Dropdown de usuario con Bootstrap -->
       <div class="header__user">
@@ -46,18 +46,18 @@
           <ul class="dropdown-menu dropdown-menu-end">
             <li>
               <a class="dropdown-item" href="#"
-                ><i class="fas fa-user-circle me-2"></i>Mi Perfil</a
+                ><i class="fas fa-user-circle me-2"></i><span data-translate="Mi Perfil">Mi Perfil</span></a
               >
             </li>
             <li>
               <a class="dropdown-item" href="#"
-                ><i class="fas fa-cog me-2"></i>Configuración</a
+                ><i class="fas fa-cog me-2"></i><span data-translate="Configuración">Configuración</span></a
               >
             </li>
             <li><hr class="dropdown-divider" /></li>
             <li>
               <a class="dropdown-item" href="#"
-                ><i class="fas fa-sign-out-alt me-2"></i>Cerrar Sesión</a
+                ><i class="fas fa-sign-out-alt me-2"></i><span data-translate="Cerrar Sesión">Cerrar Sesión</span></a
               >
             </li>
           </ul>
@@ -71,24 +71,24 @@
         <ul class="sidebar__list">
           <li class="sidebar__item">
             <a class="sidebar__link active" href="#" data-section="inicio">
-              <i class="fa fa-home"></i> Inicio
+              <i class="fa fa-home"></i> <span class="link-text" data-translate="Inicio">Inicio</span>
             </a>
           </li>
-          <li class="sidebar__section">Usuarios</li>
+          <li class="sidebar__section"><span class="section-text" data-translate="Usuarios">Usuarios</span></li>
           <li class="sidebar__item">
             <a class="sidebar__link" href="#" data-section="usuarios">
-              <i class="fa fa-users"></i> Ver usuarios
+              <i class="fa fa-users"></i> <span class="link-text" data-translate="Ver usuarios">Ver usuarios</span>
             </a>
           </li>
-          <li class="sidebar__section">Tareas</li>
+          <li class="sidebar__section"><span class="section-text" data-translate="Tareas">Tareas</span></li>
           <li class="sidebar__item">
             <a class="sidebar__link" href="#" data-section="tareas">
-              <i class="fa fa-list"></i> Ver tareas
+              <i class="fa fa-list"></i> <span class="link-text" data-translate="Ver tareas">Ver tareas</span>
             </a>
           </li>
           <li class="sidebar__item">
             <a class="sidebar__link" href="#" data-section="nueva-tarea">
-              <i class="fa fa-plus"></i> Nueva tarea
+              <i class="fa fa-plus"></i> <span class="link-text" data-translate="Nueva tarea">Nueva tarea</span>
             </a>
           </li>
         </ul>
@@ -99,10 +99,10 @@
             data-bs-toggle="modal"
             data-bs-target="#configModal"
           >
-            <i class="fa fa-cog"></i> Config
+            <i class="fa fa-cog"></i> <span class="button-text" data-translate="Config">Config</span>
           </button>
           <button class="sidebar__button" onclick="logout()">
-            <i class="fa fa-sign-out-alt"></i> Salir
+            <i class="fa fa-sign-out-alt"></i> <span class="button-text" data-translate="Salir">Salir</span>
           </button>
         </div>
       </nav>
@@ -110,7 +110,7 @@
       <!-- Panel principal -->
       <div class="panel panel--shadow-lg">
         <div class="panel__header">
-          <h2 class="panel__title" id="panelTitle">Panel de Información</h2>
+          <h2 class="panel__title" id="panelTitle" data-translate="Panel de Información">Panel de Información</h2>
 
           <!-- Badge de notificaciones con Bootstrap -->
           <span class="badge bg-primary rounded-pill" id="notificationBadge">
@@ -127,8 +127,7 @@
               role="alert"
             >
               <i class="fas fa-info-circle me-2"></i>
-              <strong>¡Bienvenido al dashboard!</strong> Aquí podrás gestionar
-              usuarios y tareas del sistema.
+              <strong data-translate="¡Bienvenido al dashboard!">¡Bienvenido al dashboard!</strong> <span data-translate="Aquí podrás gestionar usuarios y tareas del sistema.">Aquí podrás gestionar usuarios y tareas del sistema.</span>
               <button
                 type="button"
                 class="btn-close"
@@ -137,7 +136,7 @@
               ></button>
             </div>
 
-            <p class="panel__text">
+            <p class="panel__text" data-translate="Utiliza el menú lateral para navegar entre las diferentes secciones del sistema.">
               Utiliza el menú lateral para navegar entre las diferentes
               secciones del sistema.
             </p>
@@ -162,7 +161,7 @@
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="configModalLabel">
+            <h5 class="modal-title" id="configModalLabel" data-translate="Configuración del Sistema">
               <i class="fas fa-cog me-2"></i>
               Configuración del Sistema
             </h5>
@@ -184,6 +183,7 @@
                   data-bs-target="#general"
                   type="button"
                   role="tab"
+                  data-translate="General"
                 >
                   <i class="fas fa-sliders-h me-2"></i>General
                 </button>
@@ -203,9 +203,16 @@
                     type="checkbox"
                     id="darkMode"
                   />
-                  <label class="form-check-label" for="darkMode"
+                  <label class="form-check-label" for="darkMode" data-translate="Modo oscuro"
                     >Modo oscuro</label
                   >
+                </div>
+                <div class="mb-3">
+                  <label for="languageSelect" class="form-label" data-translate="Idioma">Idioma</label>
+                  <select class="form-select" id="languageSelect">
+                    <option value="es">Español</option>
+                    <option value="en">English</option>
+                  </select>
                 </div>
               </div>
             </div>
@@ -215,6 +222,7 @@
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
+              data-translate="Cancelar"
             >
               Cancelar
             </button>
@@ -222,6 +230,7 @@
               type="button"
               class="btn btn-primary"
               onclick="saveConfig()"
+              data-translate="Guardar cambios"
             >
               <i class="fas fa-save me-2"></i>Guardar cambios
             </button>
