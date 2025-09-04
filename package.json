@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/Valen0319/To-do-list-API-RESTful#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^5.1.0",
     "mysql2": "^3.14.3"
   }

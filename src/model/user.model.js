@@ -1,5 +1,19 @@
 import { pool } from "../config/db.js";
 
+export const findByEmail = async (email) => {
+  try {
+    const query = "SELECT * FROM usuarios WHERE email = ?";
+    const [rows] = await pool.query(query, [email]);
+    if (rows.length === 0) {
+      return null;
+    }
+    return rows[0];
+  } catch (error) {
+    console.error(`Error fetching user with email ${email}:`, error);
+    throw new Error(`Could not fetch user with email ${email} from the database.`);
+  }
+};
+
 export const getAll = async () => {
   try {
     const query = "SELECT * FROM usuarios";
